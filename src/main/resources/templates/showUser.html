@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Информация о пользователе</title>
+</head>
+<body>
+<br>
+<p th:text="${'email = ' + user.getUsername()}">VALUE</p>
+<p th:text="${'FirstName = ' + user.getFirstName()}">VALUE</p>
+<p th:text="${'LastName = ' + user.getLastName()}">VALUE</p>
+<p th:text="${'Password = '}">VALUE</p>
+<p th:text="${'Age = ' + user.getAge()}">VALUE</p>
+
+<br>
+<div>
+  <a href="/logout"><h3>Выход</h3></a><br>
+</div>
+<br>
+<div>
+  <a href="/users"><h3>Вернуться на стартовую страницу</h3></a><br>
+</div>
+
+</body>
+</html>
