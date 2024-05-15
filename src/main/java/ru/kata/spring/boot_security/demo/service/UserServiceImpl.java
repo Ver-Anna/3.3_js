@@ -34,14 +34,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     //показать пользователя по ID
 
     @Override
-    public User showUser(Long id) {
+    @Transactional
+    public User getUser(long id) {
         return userRepository.findById(id).get();
     }
 
     //сохранить пользователя
     @Transactional
     @Override
-    public void save(User user) {
+    public void saveUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
@@ -49,7 +50,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     //удалить пользователя по ID
     @Transactional
     @Override
-    public void deleteUserById(Long id) {
+    public void removeUserById(long id) {
         if (userRepository.findById(id).isPresent()) {
             userRepository.deleteById(id);
         }
@@ -58,7 +59,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     // Редактирование пользователя
     @Transactional
     @Override
-    public void edit(Long id, User user) {
+    public void editUser(Long id, User user) {
         User existingUser = userRepository.findById(id).get(); // получаем существующего пользователя из репозитория
         if (user.getPassword().isEmpty()) { // если пароль пустой
             user.setPassword(existingUser.getPassword());// то пароль будет равным паролю существующего пользователя.
@@ -75,6 +76,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> user = findByUsername(username);
         if (user.isEmpty()) { // если пользователя нет, то выбрасывается исколючение

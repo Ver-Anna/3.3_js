@@ -8,32 +8,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
+import ru.kata.spring.boot_security.demo.service.UserServiceImpl;
 
 import java.security.Principal;
 
 @Controller
-@RequestMapping("/users")
 public class UserController {
-    private UserService userService;
-    private RoleService roleService;
+    private UserServiceImpl userService;
 
     @Autowired
-    public UserController(UserService userService, RoleService roleService) {
+    public UserController(UserServiceImpl userService) {
         this.userService = userService;
-        this.roleService = roleService;
     }
 
-    // стартовая страница
-    @GetMapping
-    public String startPage() {
-        return "startPage";
+    @GetMapping("/login")
+    public String loginPage() {
+        return "login";
     }
 
     // Показываем данные авторизованного пользователя
-    @GetMapping("/{id}")
+    @GetMapping("/user")
     public String showUser(Principal principal, Model model) {
         User user = userService.findByUsername(principal.getName()).get();
         model.addAttribute("user", user);
-        return "showUser";
+        return "user";
     }
 }
