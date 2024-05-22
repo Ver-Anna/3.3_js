@@ -28,6 +28,7 @@ public class Role implements GrantedAuthority {
         return getRole();
     }
 
+
     @Override
     public String toString() {
         return role.substring(5);
@@ -37,15 +38,12 @@ public class Role implements GrantedAuthority {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Role other = (Role) o;
-        return Objects.equals(id, other.id) && Objects.equals(role, other.role);
+        Role role1 = (Role) o;
+        return Objects.equals(id, role1.id) && Objects.equals(role, role1.role);
     }
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        return result;
+        return Objects.hash(id, role);
     }
 }
